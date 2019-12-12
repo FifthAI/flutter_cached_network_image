@@ -33,25 +33,17 @@ class CachedNetworkImageProvider
   final Map<String, String> headers;
 
   @override
-  Future<CachedNetworkImageProvider> obtainKey(
-      ImageConfiguration configuration) {
-    return SynchronousFuture<CachedNetworkImageProvider>(this);
-  }
-
-  @override
-  ImageStreamCompleter load(CachedNetworkImageProvider key) {
+  ImageStreamCompleter load(CachedNetworkImageProvider key, decode) {
     return MultiFrameImageStreamCompleter(
       codec: _loadAsync(key),
       scale: key.scale,
-// TODO enable information collector on next stable release of flutter
-//      informationCollector: () sync* {
-//        yield DiagnosticsProperty<ImageProvider>(
-//          'Image provider: $this \n Image key: $key',
-//          this,
-//          style: DiagnosticsTreeStyle.errorProperty,
-//        );
-//      },
     );
+  }
+
+  @override
+  Future<CachedNetworkImageProvider> obtainKey(
+      ImageConfiguration configuration) {
+    return SynchronousFuture<CachedNetworkImageProvider>(this);
   }
 
   Future<ui.Codec> _loadAsync(CachedNetworkImageProvider key) async {
