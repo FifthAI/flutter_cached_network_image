@@ -21,4 +21,5 @@ pubspec.lock
 *.iws
 .idea/
 
-\.DS_Store
+.DS_Store
+.dart_tool
